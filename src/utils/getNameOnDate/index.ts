@@ -1,0 +1,1 @@
+export { getNameOnDate } from './getNameOnDate';

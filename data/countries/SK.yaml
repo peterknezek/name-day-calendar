@@ -1,0 +1,20 @@
+namedays:
+  SK:
+    countrie:
+      sk: Slovenská republika
+      en: Slovakia
+    days:
+      02-02:
+        - name: Erich
+          sex: M
+        - name: Erik
+          sex: M
+        - name: Erika
+          sex: F
+      06-29:
+        - name: Peter
+          sex: M
+        - name: Pavol
+          sex: M
+        - name: Petra
+          sex: F
