@@ -4,6 +4,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import babel from '@rollup/plugin-babel';
 import copy from 'rollup-plugin-copy'
+import pluginJson from '@rollup/plugin-json';
 
 
 import packageJson from './package.json';
@@ -18,13 +19,13 @@ export default {
     input: 'src/index.ts',
     output: [
         {
-            file: packageJson.main,
+            dir: packageJson.main,
             name: packageJson.name,
             format: 'cjs',
             sourcemap: true,
         },
         {
-            file: packageJson.module,
+            dir: packageJson.module,
             name: packageJson.name,
             format: 'es',
             sourcemap: true,
@@ -36,6 +37,7 @@ export default {
           extensions,
         }),
         commonjs(),
+        pluginJson(),
         babel({
           extensions,
           exclude: 'node_modules/**',
