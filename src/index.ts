@@ -1,1 +1,1 @@
-export * from './utils';
+export { getNameOnDate } from './features';
