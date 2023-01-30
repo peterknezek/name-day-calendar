@@ -1,5 +1,5 @@
+import { TStringDate } from './calendar';
+
 export type DefaultExport<Content> = { default: Content };
 
-export interface IFileContent {
-  [date: string]: string[];
-}
+export type TFileContent = Record<TStringDate, string[]>;

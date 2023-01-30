@@ -1,6 +1,5 @@
-import type { ISearchParams, Optional, TStringDate } from '../../types';
+import { ISearchParams, Optional } from '../../types';
 import { defineDataLoaderParams, getDataFromDataResources } from '../../utils';
-import { extractDate } from './utils';
 
 function processChain() {
   return {
@@ -24,16 +23,6 @@ function processChain() {
   };
 }
 
-export const getNameOnDate = async (
-  date: TStringDate | Date,
-  options?: Partial<Pick<ISearchParams, 'lang' | 'sex'>>,
-) => {
-  const [month, day] = extractDate(date);
-
-  const names = await processChain()
-    .defineDataForLoader({ month, ...options })
-    .getDataFromResources();
-
-  const keyDate: TStringDate = `${month}-${day}`;
-  return names?.[keyDate];
+export const getNamesByMonth = async (options: Optional<ISearchParams, 'lang' | 'sex'>) => {
+  return await processChain().defineDataForLoader(options).getDataFromResources();
 };
