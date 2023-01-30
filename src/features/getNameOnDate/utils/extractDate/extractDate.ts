@@ -1,15 +1,11 @@
-import { toStringDigit } from '../../../../utils';
+import { Day, Month, TStringDate } from '../../../../types';
 
-export const extractDate = (date: string | Date): [string, string] => {
+export const extractDate = (date: TStringDate | Date): [Month, Day] => {
   if (date instanceof Date) {
-    const [month, day] = [date.getMonth(), date.getDate()];
-    return [toStringDigit(month), toStringDigit(day)];
+    const [month, day] = [date.getMonth() as Month, date.getDate() as Day];
+    return [month, day];
   }
 
-  const regex = /[0-1][0-9]-[0-3][0-9]/s;
-  if (!regex.test(date)) {
-    throw new Error('Date is in wrong format. Use MM-DD');
-  }
   const [month, day] = date.split('-');
-  return [month, day];
+  return [+month, +day] as [Month, Day];
 };

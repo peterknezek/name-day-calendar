@@ -14,6 +14,9 @@ const config = {
   data: {
     export: path.resolve(__dirname, upToRoot, 'src', 'data'),
   },
+  loaders: {
+    exportPath: path.resolve(__dirname, upToRoot, 'src'),
+  },
 };
 
 const REGEX = /^([A-Z]+)\.yaml$/;
@@ -73,7 +76,9 @@ class CalendarToJson {
 
       return Object.entries(obj.namedays[code].days).reduce<DataArray>((all, day) => {
         const [date, names] = day;
-        const [month] = date.split('-');
+        const [MM, DD] = date.split('-');
+        const month = +MM;
+        const intlDate = `${+MM}-${+DD}`;
         return {
           ...all,
           [month]: {
@@ -83,7 +88,7 @@ class CalendarToJson {
                 countrie: code,
                 data: {
                   ...all[month]?.f[0]?.data,
-                  [date]: names.filter((name) => name.sex !== 'M').map((i) => i.name),
+                  [intlDate]: names.filter((name) => name.sex !== 'M').map((i) => i.name),
                 },
               },
             ],
@@ -92,7 +97,7 @@ class CalendarToJson {
                 countrie: code,
                 data: {
                   ...all[month]?.m[0]?.data,
-                  [date]: names.filter((name) => name.sex !== 'F').map((i) => i.name),
+                  [intlDate]: names.filter((name) => name.sex !== 'F').map((i) => i.name),
                 },
               },
             ],
@@ -110,6 +115,7 @@ class CalendarToJson {
   save() {
     this.generateTypes();
     this.generateData();
+    this.generateLoaders();
   }
 
   /**
@@ -124,6 +130,36 @@ class CalendarToJson {
       'utf8',
     );
     fs.writeFileSync(path.resolve(config.types.countryCodes, 'index.ts'), `export * from './countryCode';\n`);
+  }
+
+  private generateLoaders() {
+    fs.writeFileSync(
+      path.resolve(config.loaders.exportPath, 'loaders.generated.ts'),
+      `import type { ISearchParams, TFileContent } from './types';
+
+      export const dataLoader = (options: ISearchParams) => {
+        ${this.countryCodes
+          .map((code) => {
+            return `if (options.lang === '${code}') {
+            ${['f', 'm']
+              .map((sex) => {
+                return `if (options.sex === ${sex === 'f' ? `'female'` : `'male'`}) {
+                ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                  .map((month) => {
+                    return `if (options.month === ${month}) return import('./data/${month}/${sex}/${code}.json').then(data => data.default) as Promise<TFileContent>;`;
+                  })
+                  .join('\n')}
+                }
+              `;
+              })
+              .join('\n')}
+          `;
+          })
+          .join('\n')}
+        }
+      }`,
+      'utf8',
+    );
   }
 
   /**

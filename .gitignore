@@ -109,3 +109,4 @@ scripts/**/*.js
 # Generated files
 src/types/generated
 src/data
+*.generated.ts
