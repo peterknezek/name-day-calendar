@@ -1,6 +1,6 @@
 # name-day-calendar
 
-Module for providing lists of the official names in a calendar by specific country. Name by day with additional options (e.g.by sex). Contain names database, handlers, and types for TypeScript.
+Module for providing lists of the official names in a calendar by specific country. Name by day with additional options (e.g.by sex). It contains the name's database, the handlers, and the types for TypeScript.
 
 [![Version](https://img.shields.io/npm/v/name-day-calendar.svg)](https://npmjs.org/package/name-day-calendar)
 [![Downloads/week](https://img.shields.io/npm/dw/name-day-calendar.svg)](https://npmjs.org/package/name-day-calendar)
@@ -31,37 +31,84 @@ Countries: 1
 
 ## Usage
 
-To avoid big bundle size. Data are split and loaded on usage. Data are separated into chunks by country, month, and sex.
+To avoid big bundle size. Data are splited by a country, month, and sex to support the tree shaking.
 
-**example**:
+
+# API
+
+## `getNameOnDate`
+
+- Return the array of names related to the provided date.
+
+Function's parameters:
+
+```ts
+async function getNameOnDate (
+  date: `${Month}-${Day}` | Date,
+  options?: {
+    lang?: 'SK';
+    sex?: 'male' | 'female';
+  }
+)
+```
+Examples:
 
 ```ts
 import { getNameOnDate } from 'name-day-calendar';
 
-// get all name days on specific date
+// get all name days for specific date
 const name: string[] = await getNameOnDate(new Date(1988, 6, 29));
 
 // get all name days on specific date and just for Slovakia
-const name: string[] = await getNameOnDate('06-30', { lang: 'SK' });
+const name: string[] = await getNameOnDate('6-30', { lang: 'SK' });
 
 // get all name days on specific date, just for Slovakia and just male specific names
-const name: string[] = await getNameOnDate('06-30', { sex: 'male', lang: 'SK' });
+const name: string[] = await getNameOnDate('6-30', { sex: 'male', lang: 'SK' });
 ```
 
-## API
+Response:
 
-### getNameOnDate
-
-```ts
-getNameOnDate = async (date: string | Date, options?: SearchOptions)
+```
+['Peter', 'Pavol', 'Petra']
 ```
 
-SearchOptions
+## `getNamesByMonth`
+
+- Returns the object with dates and names related to the provided month.
+
+Function parameters:
 
 ```ts
-interface SearchOptions {
-  lang?: CountryCode | CountryCode[];
-  sex?: 'male' | 'female';
+async function getNameOnDate (
+  options: {
+    month: number; // 1-12 
+    lang?: 'SK';
+    sex?: 'male' | 'female';
+  }
+)
+```
+Examples:
+
+```ts
+import { getNamesByMonth } from 'name-day-calendar';
+
+// get all names for specific month
+const names = await getNamesByMonth({month: 6});
+
+// get all names for specific month but just for a Slovakia
+const names = await getNamesByMonth({ month: 6, lang: 'SK' });
+
+// get all names for specific month, just for Slovakia and male gender
+const names = await getNamesByMonth({ month: 6, sex: 'male', lang: 'SK' });
+```
+
+Response:
+
+```
+{
+  '6-1': [...],
+  ...
+  '6-30': ['Peter', 'Pavol', 'Petra'],
 }
 ```
 
