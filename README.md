@@ -1,6 +1,6 @@
 # name-day-calendar
 
-Module for providing lists of the official names in a calendar by specific country. Name by day with additional options (e.g.by sex). Contain names database, handlers, and types for TypeScript.
+Module for providing lists of the official names in a calendar by specific country. Name by day with additional options (e.g.by sex). It contains the name's database, the handlers, and the types for TypeScript.
 
 [![Version](https://img.shields.io/npm/v/name-day-calendar.svg)](https://npmjs.org/package/name-day-calendar)
 [![Downloads/week](https://img.shields.io/npm/dw/name-day-calendar.svg)](https://npmjs.org/package/name-day-calendar)
@@ -31,16 +31,16 @@ Countries: 1
 
 ## Usage
 
-To avoid big bundle size. Resources data are split by a country, month, and sex to support the tree shaking.
+To avoid big bundle size. Data are splited by a country, month, and sex to support the tree shaking.
 
 
 # API
 
 ## `getNameOnDate`
 
-- Returns the array of names related to the provided date.
+- Return the array of names related to the provided date.
 
-Function parameters:
+Function's parameters:
 
 ```ts
 async function getNameOnDate (
@@ -56,7 +56,7 @@ Examples:
 ```ts
 import { getNameOnDate } from 'name-day-calendar';
 
-// get all name days on specific date
+// get all name days for specific date
 const name: string[] = await getNameOnDate(new Date(1988, 6, 29));
 
 // get all name days on specific date and just for Slovakia
