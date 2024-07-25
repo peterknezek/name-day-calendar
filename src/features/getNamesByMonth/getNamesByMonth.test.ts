@@ -1,10 +1,10 @@
 import mergeWith from 'lodash.mergewith';
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'vitest';
 
-import { getNamesByMonth } from './getNamesByMonth';
 import namedays_f from '../../data/6/f/SK.json';
 import namedays_m from '../../data/6/m/SK.json';
 import { customizerMergeOfCalendars } from '../../utils';
+import { getNamesByMonth } from './getNamesByMonth';
 
 describe('Feature getNamesByMonth()', () => {
   describe('Should return names', () => {

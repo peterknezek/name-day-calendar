@@ -1,8 +1,8 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'vitest';
 
-import { getNameOnDate } from './getNameOnDate';
 import namedays_f from '../../data/6/f/SK.json';
 import namedays_m from '../../data/6/m/SK.json';
+import { getNameOnDate } from './getNameOnDate';
 
 describe('Should return name if date is provided as string', () => {
   test('without options', async () => {
