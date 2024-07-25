@@ -1,8 +1,9 @@
-import { getNameOnDate } from './getNameOnDate';
+import { describe, expect, test } from 'vitest';
+
 import namedays_f from '../../data/6/f/SK.json';
 import namedays_m from '../../data/6/m/SK.json';
+import { getNameOnDate } from './getNameOnDate';
 
-describe('Feature getNameOnDate()', () => {});
 describe('Should return name if date is provided as string', () => {
   test('without options', async () => {
     expect(await getNameOnDate('6-29')).toEqual(['Peter', 'Pavol', 'Petra']);
