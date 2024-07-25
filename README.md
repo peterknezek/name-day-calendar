@@ -56,13 +56,13 @@ Examples:
 ```ts
 import { getNameOnDate } from 'name-day-calendar';
 
-// get all name days for specific date
-const name: string[] = await getNameOnDate(new Date(1988, 6, 29));
+// get all name days for a specific date (don’t forget the months are 0-indexed in JS)
+const name: string[] = await getNameOnDate(new Date(1988, 5, 29));
 
-// get all name days on specific date and just for Slovakia
+// get all name days on a specific date and just for Slovakia.
 const name: string[] = await getNameOnDate('6-30', { lang: 'SK' });
 
-// get all name days on specific date, just for Slovakia and just male specific names
+// get all name days on a specific date, just for Slovakia, and just male-specific names
 const name: string[] = await getNameOnDate('6-30', { sex: 'male', lang: 'SK' });
 ```
 
@@ -74,7 +74,7 @@ Response:
 
 ## `getNamesByMonth`
 
-- Returns the object with dates and names related to the provided month.
+- Returns an object with dates and names related to the provided month.
 
 Function parameters:
 
@@ -92,13 +92,13 @@ Examples:
 ```ts
 import { getNamesByMonth } from 'name-day-calendar';
 
-// get all names for specific month
+// get all names for a specific month
 const names = await getNamesByMonth({month: 6});
 
-// get all names for specific month but just for a Slovakia
+// get all names for a specific month, but just for Slovakia
 const names = await getNamesByMonth({ month: 6, lang: 'SK' });
 
-// get all names for specific month, just for Slovakia and male gender
+// get all names for a specific month, just for Slovakia and the male gender
 const names = await getNamesByMonth({ month: 6, sex: 'male', lang: 'SK' });
 ```
 

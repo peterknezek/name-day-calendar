@@ -2,7 +2,8 @@ import { Day, Month, TStringDate } from '../../../../types';
 
 export const extractDate = (date: TStringDate | Date): [Month, Day] => {
   if (date instanceof Date) {
-    const [month, day] = [date.getMonth() as Month, date.getDate() as Day];
+    // Months are 0-indexed in JS
+    const [month, day] = [(date.getMonth() + 1) as Month, date.getDate() as Day];
     return [month, day];
   }
 

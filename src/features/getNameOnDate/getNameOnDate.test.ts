@@ -15,11 +15,13 @@ describe('Should return name if date is provided as string', () => {
 
 describe('Should return date if in date format', () => {
   test('without options', async () => {
-    const date = new Date(1988, 6, 29);
+    // Months are 0-indexed in JS
+    const date = new Date(1988, 5, 29);
     expect(await getNameOnDate(date)).toEqual(['Peter', 'Pavol', 'Petra']);
   });
   test('with option defined specific language and sex', async () => {
-    const date = new Date(1988, 6, 29);
+    // Months are 0-indexed in JS
+    const date = new Date(1988, 5, 29);
     expect(await getNameOnDate(date, { lang: 'SK', sex: 'male' })).toEqual(namedays_m['6-29']);
   });
 });
