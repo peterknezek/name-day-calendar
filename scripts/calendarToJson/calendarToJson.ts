@@ -126,7 +126,7 @@ class CalendarToJson {
     fs.writeFileSync(
       path.resolve(config.types.countryCodes, 'countryCode.ts'),
       `export type CountryCode = ${this.countryCodes.map((code) => `'${code}'`).join(' | ')};\n` +
-        `export enum ECountryCode {\n${this.countryCodes.map((code) => `  '${code}' = '${code}',`).join('\n')}\n}\n`,
+        `export enum ECountryCode {\n${this.countryCodes.map((code) => `  ${code} = '${code}',`).join('\n')}\n}\n`,
       'utf8',
     );
     fs.writeFileSync(path.resolve(config.types.countryCodes, 'index.ts'), `export * from './countryCode';\n`);
