@@ -3,6 +3,7 @@
     "strict": true,
     "lib": ["ES2022", "DOM"],
     "esModuleInterop": true,
+    "rootDir": "src",
     "outDir": "dist",
     "declaration": true,
     "emitDeclarationOnly": true,
