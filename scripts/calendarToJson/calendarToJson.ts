@@ -1,21 +1,21 @@
 import fs from 'fs';
-import jsyaml from 'js-yaml';
+import { load } from 'js-yaml';
 import path from 'path';
 
-import type { DataArray, NamedayObject } from './types';
+import type { DataArray, NamedayObject } from './types.ts';
 
 const upToRoot = '../..';
 const config = {
-  dirname: path.resolve(__dirname, upToRoot, 'data'),
-  countries: path.resolve(__dirname, upToRoot, 'data', 'countries'),
+  dirname: path.resolve(import.meta.dirname, upToRoot, 'data'),
+  countries: path.resolve(import.meta.dirname, upToRoot, 'data', 'countries'),
   types: {
-    countryCodes: path.resolve(__dirname, upToRoot, 'src', 'types', 'generated'),
+    countryCodes: path.resolve(import.meta.dirname, upToRoot, 'src', 'types', 'generated'),
   },
   data: {
-    export: path.resolve(__dirname, upToRoot, 'src', 'data'),
+    export: path.resolve(import.meta.dirname, upToRoot, 'src', 'data'),
   },
   loaders: {
-    exportPath: path.resolve(__dirname, upToRoot, 'src'),
+    exportPath: path.resolve(import.meta.dirname, upToRoot, 'src'),
   },
 };
 
@@ -25,7 +25,6 @@ class CalendarToJson {
   private countryCodes: string[] = [];
   private namedays: DataArray[] = [];
 
-  constructor(public opts = {}) {}
   /**
    * get list of countries from directory
    */
@@ -55,7 +54,7 @@ class CalendarToJson {
   private load(filename: string) {
     const data = fs.readFileSync(path.resolve(config.countries, filename + '.yaml'), 'utf8');
     try {
-      const obj = jsyaml.load(data);
+      const obj = load(data);
       if (typeof obj === 'object') {
         return obj;
       }

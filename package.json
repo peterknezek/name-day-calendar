@@ -22,20 +22,17 @@
     "build:declarations": "tsc",
     "build:esm": "esbuild src/index.ts --outfile=dist/index.mjs --format=esm --bundle --target=es2020 --sourcemap --minify",
     "build:cjs": "esbuild src/index.ts --outfile=dist/index.cjs --format=cjs --bundle --target=es2016 --sourcemap --analyze",
-    "prebuild:data": "npm run scripts:build",
-    "build:data": "node scripts/calendarToJson/calendarToJson.js",
+    "build:data": "node scripts/calendarToJson/calendarToJson.ts",
     "postbuild:data": "prettier --check --write \"src/loaders.generated.ts\"",
     "pretest": "npm run build:data",
     "test": "vitest run --coverage",
     "test:ci": "vitest run --coverage",
-    "prelint": "npm run build:data && npm run build:declarations",
+    "prelint": "npm run build:data && npm run typecheck:scripts && npm run build:declarations",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\"",
     "lint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --fix",
     "format": "prettier --write \"(src|scripts)/**/*.ts\"",
     "dev": "vitest --watch",
-    "scripts:dev": "tsc --project scripts/tsconfig.json --watch",
-    "scripts:build": "tsc --build scripts/tsconfig.json",
-    "scripts:start": "node scripts/calendarToJson/calendarToJson.js"
+    "typecheck:scripts": "tsc --project scripts/tsconfig.json"
   },
   "repository": {
     "type": "git",
